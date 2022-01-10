@@ -1,6 +1,6 @@
 # Image Classification using AWS SageMaker
 
-Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This is done on dog breed classication data set.
+Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices.
 
 ## Project Set Up and Installation
 Enter AWS through the gateway in the course and open SageMaker Studio.
@@ -8,15 +8,14 @@ Download the starter files.
 Download/Make the dataset available. 
 
 ## Dataset
-The provided dataset is the dogbreed classification dataset which can be found in the classroom.
-The project is designed to be dataset independent so if there is a dataset that is more interesting or relevant to your work, you are welcome to use it to complete the project.
+The dataset used is dog breed classication data set and is available here; https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip
 
 ### Access
 Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has access to the data. 
 
 ## Hyperparameter Tuning
-What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
-I used the 'resnet50' pretrained model for this experiment, because as a starter project for transfer learning this is a good choice.
+Here I used the 'resnet50' pretrained model for this experiment, because as a starter project for transfer learning this is a good choice.
+
 The hyperparameters and the ranges used are; 
     learning-rate ContinuousParameter(0.001, 0.1),
     batch-size:   CategoricalParameter([32, 64, 128, 256, 512]),
@@ -24,26 +23,34 @@ The hyperparameters and the ranges used are;
 and test-batch-size: "100"
 
 Remember that your README should:
-- screenshot are available in this project folder for
+ -screenshot are available in this project folder for
     --hyperparameter tuning job
     --training jobs
     --log metrics
     
--the best best hyperparameters from all the training jobs are;
-{'test-batch-size': '100',
- 'epochs': '9',
- 'batch-size': 256,
- 'lr': '0.087281525554365'}
+ -the best best hyperparameters from all the training jobs are;
+ {'test-batch-size': '100',
+  'epochs': '9',
+  'batch-size': 256,
+  'lr': '0.087281525554365'}
 
 
 ## Debugging and Profiling
 
+Summary from logs;
+
 modelVanishingGradient: NoIssuesFound
+
 Overfit: NoIssuesFound
+
 Overtraining: NoIssuesFound
+
 PoorWeightInitialization: NoIssuesFound
+
 LossNotDecreasing: NoIssuesFound
+
 LowGPUUtilization: IssuesFound
+
 ProfilerReport: IssuesFound
 
 ### Results
