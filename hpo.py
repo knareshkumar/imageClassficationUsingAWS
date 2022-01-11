@@ -209,5 +209,6 @@ if __name__=='__main__':
     )
     
     args = parser.parse_args()
-    print("args to hpo.py : ", args)
+    #print("args to hpo.py : ", args)
+    logger.info('lr: {}, batch-size: {}, epochs: {}'.format(args.lr, args.batch-size, args.epochs))
     main(args)

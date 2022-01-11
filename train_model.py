@@ -69,8 +69,10 @@ def train(model, train_loader, validation_loader, criterion, optimizer, device, 
             print(f"Epoch {epoch}, Phase {phase}")
             if phase == 'train':
                 model.train()
+                hook.set_mode(smd.modes.TRAIN)
             else:
                 model.eval()
+                hook.set_mode(smd.modes.EVAL)
 
             running_loss = 0.0
             running_corrects = 0
@@ -151,8 +153,6 @@ def create_data_loaders(train_data, test_data, validation_data, batch_size):
 def main(args):
     #Initialize a model by calling the net function
     model = net()
-    hook = smd.Hook.create_from_json_file()
-    hook.register_hook(model)
     
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -161,7 +161,11 @@ def main(args):
     #Create your loss and optimizer
     loss_criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.fc.parameters(), lr = args.lr)
-    
+
+    hook = smd.Hook.create_from_json_file()
+    hook.register_module(model)
+    hook.register_loss(loss_criterion)
+
     train_loader, test_loader, validation_loader = create_data_loaders(
                         args.train_data, args.test_data, args.val_data, args.batch_size)
     
